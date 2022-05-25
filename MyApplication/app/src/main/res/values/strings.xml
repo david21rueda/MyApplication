@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="admin">Administrador</string>
+    <string name="pollster">Encuestador</string>
+    <string name="user">Busqueda</string>
+    <string name="admin_list">Lista de Administradores</string>
+    <string name="pollster_list">Lista de Encuestadores</string>
+    <string name="user_list">Lista de Dueños</string>
+    <string name="pet_list">Lista de Mascotas</string>
+
+    <string name="error_input_empty">Los campos no deben estar vacios</string>
+    <string name="error_not_a_valid_email">Por favor ingrese un email valido</string>
+    <string name="error_not_a_valid_phone_number">Please enter a valid phone number</string>
+    <string name="error_incorrectly_repeated_password">Las contraseñas no coinciden</string>
+    <string name="error_invalid_credentials">El e-mail o la contraseña son incorretas</string>
+    <string name="success_login">Ingresando a la plataforma</string>
+    <string name="error_unknown">Un error desconocido ha ocurrido</string>
+</resources>
