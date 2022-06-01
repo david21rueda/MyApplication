@@ -6,22 +6,17 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.juandanielgarcia.myapplication.R
 import com.juandanielgarcia.myapplication.navigation.Destinations
-import com.juandanielgarcia.myapplication.presentation.listFull.sharedComponents.DefaultListScreen
+import com.juandanielgarcia.myapplication.presentation.listFull.sharedComponents.PetItem
 import com.juandanielgarcia.myapplication.presentation.listFull.sharedComponents.TopBar
-import com.juandanielgarcia.myapplication.presentation.listFull.sharedComponents.UserItem
-import com.juandanielgarcia.myapplication.ui.theme.MyApplicationTheme
+import com.juandanielgarcia.myapplication.ui.theme.GreenAdd
+import com.juandanielgarcia.myapplication.ui.theme.White
 
 @Composable
 fun PetListScreen(
@@ -30,17 +25,21 @@ fun PetListScreen(
 ) {
     Scaffold(
         topBar = {
-            TopBar(title = "Pets", iconButton = Icons.Default.ArrowBack)
+            TopBar(
+                title = "Mascotas",
+                iconButton = R.drawable.back_icon,
+                onClickBack = { navController.navigateUp() })
         },
         floatingActionButton = {
             HomeFab(
-                onFabClicked = { navController.navigate(Destinations.Edit.route) }
+                onFabClicked = { navController.navigate(Destinations.CreatePet.route) }
             )
         },
     ) { innerPadding ->
         FullList(
             modifier = Modifier.padding(innerPadding),
-            typeUserOfThisScreen = typeUserOfThisScreen
+            typeUserOfThisScreen = typeUserOfThisScreen,
+            navController = navController,
         )
     }
 }
@@ -48,6 +47,7 @@ fun PetListScreen(
 @Composable
 fun FullList(
     modifier: Modifier = Modifier,
+    navController: NavController,
     typeUserOfThisScreen: String,
     /*onDeleteUser: (user: User) -> Unit,
     onEditUser: (id: Int?) -> Unit,
@@ -57,14 +57,18 @@ fun FullList(
         color = MaterialTheme.colors.surface,
         modifier = modifier
     ) {
+
         LazyColumn {
 
             items(5) {
-                UserItem(
-                    onEditUser = { },
-                    onDeleteUser = { },
-                    typeUserOfThisScreen = typeUserOfThisScreen,
-                    onViewFullDetails = {}
+                PetItem(
+                    onViewFullDetails = { navController.navigate(Destinations.DetailsPet.route) },
+                    NamePet = "Pachoncito",
+                    NameOwner = "Juan Daniel Garcia Peña",
+                    CedulaOwner = "1193356776",
+                    TypeAnimal = "Perro",
+                    Breed = "Bulldog",
+                    Address = "Calle 1 Barrio Colombia",
                 )
             }
         }
@@ -74,15 +78,16 @@ fun FullList(
 @Composable
 fun HomeFab(
     modifier: Modifier = Modifier,
-    onFabClicked: () -> Unit = {  }
+    onFabClicked: () -> Unit = { }
 ) {
     FloatingActionButton(
         onClick = onFabClicked,
         modifier = modifier
             .height(52.dp)
             .widthIn(min = 52.dp),
-        backgroundColor = MaterialTheme.colors.primary
+        backgroundColor = GreenAdd,
+        contentColor = White
     ) {
-        Icon(imageVector = Icons.Outlined.Add, contentDescription = "User")
+        Icon(imageVector = Icons.Outlined.Add, contentDescription = "Add")
     }
 }

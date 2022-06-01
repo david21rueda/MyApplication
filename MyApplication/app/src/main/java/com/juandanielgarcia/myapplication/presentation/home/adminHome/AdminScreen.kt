@@ -30,7 +30,7 @@ fun AdminScreen(
 ) {
     Scaffold(
         topBar = {
-            TopBar(title = "Admin", iconButton = Icons.Default.AccountCircle)
+            TopBar(title = "Inicio")
         }
     ) { innerPadding ->
         Body(modifier = Modifier.padding(innerPadding), navController)
@@ -48,96 +48,48 @@ fun Body(
             .padding(16.dp)
             .fillMaxSize()
     ) {
-        Card(
-            modifier = modifier
-                .padding(horizontal = 14.dp, vertical = 12.dp),
-            elevation = 3.dp,
-            shape = RoundedCornerShape(corner = CornerSize(25.dp))
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Card(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 14.dp, vertical = 12.dp),
-                    elevation = 3.dp,
-                    shape = RoundedCornerShape(corner = CornerSize(25.dp))
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .padding(12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(12.dp),
-                            verticalArrangement = Arrangement.Center
-                        ) {
-
-                            Text(
-                                text = "Bienvenido",
-                                style = MaterialTheme.typography.h5.copy(
-                                    fontWeight = FontWeight.Light
-                                )
-                            )
-                            Text(
-                                text = "Juan Garcia",
-                                style = MaterialTheme.typography.h3.copy(
-                                    fontWeight = FontWeight.Bold
-                                )
-                            )
-                            Text(
-                                text = "Administrador",
-                                style = MaterialTheme.typography.h6.copy(
-                                    fontWeight = FontWeight.Light
-                                )
-                            )
-                        }
-
+            ProfileCard(Name = "Luis Angel Robles Niño", Role = "Administrador")
+            Row() {
+                ButtonCRUD(
+                    description = "Dueño",
+                    iconButton = Icons.Default.Person,
+                    onClickAction = {
+                        navController.navigate(Destinations.UserList.route)
                     }
-                }
-                Row() {
-                    ButtonCRUD(
-                        description = "Dueño",
-                        iconButton = Icons.Default.Person,
-                        onClickAction = {
-                            navController.navigate(Destinations.UserList.route)
-                        }
-                    )
-                    ButtonCRUD(
-                        description = "Mascota",
-                        iconButton = Icons.Default.Pets,
-                        onClickAction = {
-                            navController.navigate(Destinations.PetList.route)
-                        }
-                    )
-                }
-                Row() {
-                    ButtonCRUD(
-                        description = "Encuestador",
-                        iconButton = Icons.Default.PersonAdd,
-                        onClickAction = {
-                            navController.navigate(Destinations.PollsterList.route)
-                        }
-                    )
-                    ButtonCRUD(
-                        description = "Admin",
-                        iconButton = Icons.Default.Engineering,
-                        onClickAction = {
-                            navController.navigate(Destinations.AdminList.route)
-                        }
-                    )
-                }
+                )
+                ButtonCRUD(
+                    description = "Mascota",
+                    iconButton = Icons.Default.Pets,
+                    onClickAction = {
+                        navController.navigate(Destinations.PetList.route)
+                    }
+                )
             }
+            Row() {
+                ButtonCRUD(
+                    description = "Encuestador",
+                    iconButton = Icons.Default.PersonAdd,
+                    onClickAction = {
+                        navController.navigate(Destinations.PollsterList.route)
+                    }
+                )
+                ButtonCRUD(
+                    description = "Admin",
+                    iconButton = Icons.Default.Engineering,
+                    onClickAction = {
+                        navController.navigate(Destinations.AdminList.route)
+                    }
+                )
+            }
+
         }
+
     }
+
 }
-
-
 
 
 @Preview(showBackground = true, device = "id:pixel_4")

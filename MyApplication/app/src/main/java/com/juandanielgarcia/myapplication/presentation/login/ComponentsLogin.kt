@@ -20,6 +20,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
+import com.juandanielgarcia.myapplication.ui.theme.Orange
 
 @Composable
 fun RoundedButton(
@@ -33,6 +34,7 @@ fun RoundedButton(
             modifier = modifier.width(280.dp).height(50.dp),
             onClick = onClick,
             shape = RoundedCornerShape(50),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Orange),
         ) {
             Text(
                 text = text,

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "235742409656",
+    "project_id": "censopetapp-78388",
+    "storage_bucket": "censopetapp-78388.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235742409656:android:786d70291f1df7b240554d",
+        "android_client_info": {
+          "package_name": "com.juandanielgarcia.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235742409656-mlpsu80d3qm3kq0epm75lhpei4ev0aed.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqn3rcJbTmfbp56e9cJ6b7BYa736ME8Z4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235742409656-mlpsu80d3qm3kq0epm75lhpei4ev0aed.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

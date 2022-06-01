@@ -39,8 +39,21 @@ import com.juandanielgarcia.myapplication.R
 import com.juandanielgarcia.myapplication.navigation.Destinations
 import com.juandanielgarcia.myapplication.ui.theme.MyApplicationTheme
 
+
 @Composable
 fun LoginScreenWOVM(
+    navController: NavController,
+) {
+
+    Scaffold(
+    ) { innerPadding ->
+        Body(modifier = Modifier.padding(innerPadding), navController)
+    }
+
+}
+@Composable
+fun Body(
+    modifier: Modifier = Modifier,
     navController: NavController,
 ) {
     val emailValue = rememberSaveable { mutableStateOf("") }
@@ -48,9 +61,11 @@ fun LoginScreenWOVM(
     var passwordVisibility by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
 
-    Surface(modifier = Modifier
-        .padding(16.dp)
-        .fillMaxSize(1f)) {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize(1f)
+            .padding(16.dp)
+    ) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -62,74 +77,82 @@ fun LoginScreenWOVM(
                 modifier = Modifier.size(200.dp),
                 contentScale = ContentScale.Fit
             )
-
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-
+            Spacer(Modifier.height(15.dp))
+            Box(
+                modifier = Modifier.padding(horizontal = 25.dp)
             ) {
-                TransparentTextField(
-                    textFieldValue = emailValue,
-                    textLabel = "Email",
-                    keyboardType = KeyboardType.Email,
-                    keyboardActions = KeyboardActions(
-                        onNext = {
-                            focusManager.moveFocus(FocusDirection.Down)
-                        }
-                    ),
-                    imeAction = ImeAction.Next
-                )
-                Spacer(Modifier.height(15.dp))
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    TransparentTextField(
+                        textFieldValue = emailValue,
+                        textLabel = "Nombre de usuario",
+                        keyboardType = KeyboardType.Email,
+                        keyboardActions = KeyboardActions(
+                            onNext = {
+                                focusManager.moveFocus(FocusDirection.Down)
+                            }
+                        ),
+                        imeAction = ImeAction.Next
+                    )
+                    Spacer(Modifier.height(15.dp))
 
-                TransparentTextField(
-                    textFieldValue = passwordValue,
-                    textLabel = "Password",
-                    keyboardType = KeyboardType.Password,
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            focusManager.clearFocus()
+                    TransparentTextField(
+                        textFieldValue = passwordValue,
+                        textLabel = "Constraseña",
+                        keyboardType = KeyboardType.Password,
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                focusManager.clearFocus()
+                                navController.navigate(Destinations.AdminHome.route)
+                            }
+                        ),
+                        imeAction = ImeAction.Done,
+                        trailingIcon = {
+                            IconButton(
+                                onClick = {
+                                    passwordVisibility = !passwordVisibility
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = if (passwordVisibility) {
+                                        Icons.Default.Visibility
+                                    } else {
+                                        Icons.Default.VisibilityOff
+                                    },
+                                    contentDescription = "Toggle Password Icon"
+                                )
+                            }
+                        },
+                        visualTransformation = if (passwordVisibility) {
+                            VisualTransformation.None
+                        } else {
+                            PasswordVisualTransformation()
+                        }
+
+                    )
+                    Spacer(Modifier.height(25.dp))
+
+                    RoundedButton(
+                        text = "Ingresar",
+                        displayProgressBar = false,
+                        onClick = {
                             navController.navigate(Destinations.AdminHome.route)
                         }
-                    ),
-                    imeAction = ImeAction.Done,
-                    trailingIcon = {
-                        IconButton(
-                            onClick = {
-                                passwordVisibility = !passwordVisibility
-                            }
-                        ) {
-                            Icon(
-                                imageVector = if (passwordVisibility) {
-                                    Icons.Default.Visibility
-                                } else {
-                                    Icons.Default.VisibilityOff
-                                },
-                                contentDescription = "Toggle Password Icon"
-                            )
-                        }
-                    },
-                    visualTransformation = if (passwordVisibility) {
-                        VisualTransformation.None
-                    } else {
-                        PasswordVisualTransformation()
-                    }
+                    )
+                    Text(
+                        modifier = Modifier
+                            .padding(top = 10.dp)
+                            .fillMaxWidth()
+                            .clickable { navController.navigate(Destinations.RecoverPassword.route) },
+                        text = "¿Olvidaste tu contraseña? Recuperala Aquí",
+                        style = MaterialTheme.typography.body1,
+                        color = Color.Blue,
+                        textAlign = TextAlign.Center,
+                    )
+                }
 
-                )
-                Spacer(Modifier.height(50.dp))
-                RoundedButton(
-                    text = "Ingresar",
-                    displayProgressBar = false,
-                    onClick = {
-                        navController.navigate(Destinations.AdminHome.route)
-                    }
-                )
-                Text(
-
-                    modifier = Modifier.padding(top=10.dp).fillMaxWidth().clickable { Destinations.RecoverPassword.route },
-                    text = "¿Olvidaste tu contraseña?",
-                    style = MaterialTheme.typography.body1,
-                    textAlign = TextAlign.Center
-                )
             }
             Image(
                 painter = painterResource(id = R.drawable.logo_toledo),
@@ -140,7 +163,11 @@ fun LoginScreenWOVM(
         }
 
     }
+
 }
+
+
+
 
 
 @Preview(showBackground = true, device = "id:pixel_4")

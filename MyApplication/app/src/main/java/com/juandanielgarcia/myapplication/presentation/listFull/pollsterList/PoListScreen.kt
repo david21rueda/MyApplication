@@ -16,11 +16,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.juandanielgarcia.myapplication.R
 import com.juandanielgarcia.myapplication.navigation.Destinations
-import com.juandanielgarcia.myapplication.presentation.listFull.sharedComponents.DefaultListScreen
 import com.juandanielgarcia.myapplication.presentation.listFull.sharedComponents.TopBar
 import com.juandanielgarcia.myapplication.presentation.listFull.sharedComponents.UserItem
+import com.juandanielgarcia.myapplication.ui.theme.GreenAdd
 import com.juandanielgarcia.myapplication.ui.theme.MyApplicationTheme
+import com.juandanielgarcia.myapplication.ui.theme.White
 
 @Composable
 fun PoListScreen(
@@ -29,11 +31,14 @@ fun PoListScreen(
 ) {
     Scaffold(
         topBar = {
-            TopBar(title = "Encuestadores", iconButton = Icons.Default.ArrowBack)
+            TopBar(
+                title = "Encuestadores",
+                iconButton = R.drawable.back_icon,
+                onClickBack = { navController.navigateUp() })
         },
         floatingActionButton = {
             HomeFab(
-                onFabClicked = { navController.navigate(Destinations.Edit.route) }
+                onFabClicked = { navController.navigate(Destinations.CreatePollster.route) }
             )
         },
     ) { innerPadding ->
@@ -64,10 +69,11 @@ fun FullList(
 
             items(5) {
                 UserItem(
-                    onViewFullDetails = { navController.navigate(Destinations.Details.route) },
-                    onEditUser = { },
-                    onDeleteUser = { },
-                    typeUserOfThisScreen = typeUserOfThisScreen,
+                    onViewFullDetails = { navController.navigate(Destinations.DetailsPollster.route) },
+                    Name = "Juan Daniel Garcia Peña",
+                    Cedula = "1193356776",
+                    Phone = "3123891276",
+                    Address = "Calle 1 Barrio Colombia",
                 )
             }
         }
@@ -77,15 +83,16 @@ fun FullList(
 @Composable
 fun HomeFab(
     modifier: Modifier = Modifier,
-    onFabClicked: () -> Unit = { }
+    onFabClicked: () -> Unit = {  }
 ) {
     FloatingActionButton(
         onClick = onFabClicked,
         modifier = modifier
             .height(52.dp)
             .widthIn(min = 52.dp),
-        backgroundColor = MaterialTheme.colors.primary
+        backgroundColor = GreenAdd,
+        contentColor = White
     ) {
-        Icon(imageVector = Icons.Outlined.Add, contentDescription = "User")
+        Icon(imageVector = Icons.Outlined.Add, contentDescription = "Add")
     }
 }

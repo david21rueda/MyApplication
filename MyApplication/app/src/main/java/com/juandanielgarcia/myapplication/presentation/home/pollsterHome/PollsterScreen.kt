@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.juandanielgarcia.myapplication.R
 import com.juandanielgarcia.myapplication.presentation.home.sharedComponents.ButtonCRUD
+import com.juandanielgarcia.myapplication.presentation.home.sharedComponents.ProfileCard
 import com.juandanielgarcia.myapplication.presentation.home.sharedComponents.TopBar
 import com.juandanielgarcia.myapplication.ui.theme.MyApplicationTheme
 
@@ -23,43 +24,32 @@ import com.juandanielgarcia.myapplication.ui.theme.MyApplicationTheme
 @Composable
 fun PollsterScreen(
     navController: NavController,
-    typeHomeScreen: String,
 
     ) {
-    var title: String = ""
-    if (typeHomeScreen == "Admin") {
-        title = stringResource(id = R.string.admin)
-    } else if (typeHomeScreen == "Pollster") {
-        title = stringResource(id = R.string.pollster)
-    } else if (typeHomeScreen == "User") {
-        title = stringResource(id = R.string.user)
-    }
     Scaffold(
         topBar = {
-            TopBar(title = title, iconButton = Icons.Default.AccountCircle)
+            TopBar(title = "Inicio")
         }
     ) { innerPadding ->
         Body(
             modifier = Modifier.padding(innerPadding),
-            typeHomeScreen = typeHomeScreen,
             navController = navController
         )
     }
 }
 
 @Composable
-fun Body(modifier: Modifier = Modifier, typeHomeScreen: String, navController: NavController) {
+fun Body(modifier: Modifier = Modifier, navController: NavController) {
     Surface(
         color = Color.White,
         modifier = Modifier
             .padding(16.dp)
             .fillMaxSize()
     ) {
-
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            ProfileCard(Name = "Luis Angel Robles Niño", Role = "Encuestador")
             Row() {
                 ButtonCRUD(
                     description = "Dueño",
